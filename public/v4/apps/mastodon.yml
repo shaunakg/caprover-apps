@@ -3,7 +3,8 @@ services:
     # Mastodon
     $$cap_appname:
         environment:
-            LOCAL_DOMAIN: $$cap_appname.$$cap_root_domain
+            LOCAL_DOMAIN: $$cap_local_domain
+            WEB_DOMAIN: $$cap_appname.$$cap_root_domain
             ALTERNATE_DOMAINS: $$cap_alt_domain
             REDIS_HOST: srv-captain--$$cap_appname-redis
             REDIS_PORT: 6379
@@ -37,7 +38,8 @@ services:
     # Streaming
     $$cap_appname-streaming:
         environment:
-            LOCAL_DOMAIN: $$cap_appname.$$cap_root_domain
+            LOCAL_DOMAIN: $$cap_local_domain
+            WEB_DOMAIN: $$cap_appname.$$cap_root_domain
             ALTERNATE_DOMAINS: $$cap_alt_domain
             REDIS_HOST: srv-captain--$$cap_appname-redis
             REDIS_PORT: 6379
@@ -71,7 +73,8 @@ services:
     # Sidekiq
     $$cap_appname-sidekiq:
         environment:
-            LOCAL_DOMAIN: $$cap_appname.$$cap_root_domain
+            LOCAL_DOMAIN: $$cap_local_domain
+            WEB_DOMAIN: $$cap_appname.$$cap_root_domain
             ALTERNATE_DOMAINS: $$cap_alt_domain
             REDIS_HOST: srv-captain--$$cap_appname-redis
             REDIS_PORT: 6379
@@ -154,6 +157,10 @@ caproverOneClickApp:
           label: Redis Password
           description: Password must be at least 12 characters. Please use a random string.
           validRegex: /^[^\@]{12,}$/
+
+        - id: $$cap_local_domain
+          label: Local domain
+          description: Everything you want after the @ in the usernames.
 
         - id: $$cap_alt_domain
           label: Alternate domains (optional)
